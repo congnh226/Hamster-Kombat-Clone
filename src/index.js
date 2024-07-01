@@ -16,10 +16,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'referral', element: <Referral /> },
-      { path: 'tasks', element: <Tasks /> },
+      // { path: 'referral', element: <Referral /> },
+      // { path: 'tasks', element: <Tasks /> },
       { path: 'boost', element: <Boost /> },
-      { path: 'stats', element: <Stats /> },
+      // { path: 'stats', element: <Stats /> },
     ],
   },
 ]);

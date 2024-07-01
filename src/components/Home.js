@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+// import { doc, updateDoc } from 'firebase/firestore';
+// import { db } from '../firebase';
 import { motion } from 'framer-motion';
 import { FaCoins } from 'react-icons/fa';
 
@@ -12,8 +12,8 @@ function Home() {
   const [message, setMessage] = useState('');
 
   const updateUserData = useCallback(async (newData) => {
-    const userRef = doc(db, 'users', user.id);
-    await updateDoc(userRef, newData);
+    // const userRef = doc(db, 'users', user.id);
+    // await updateDoc(userRef, newData);
     setUser(prevUser => ({ ...prevUser, ...newData }));
   }, [user.id, setUser]);
 
@@ -22,12 +22,13 @@ function Home() {
     let energyInterval;
 
     if (isMining && user.energy > 0) {
-      miningInterval = setInterval(() => {
+      // miningInterval = setInterval(() => {
         updateUserData({
           coins: user.coins + miningPower,
           energy: Math.max(user.energy - 1, 0)
         });
-      }, 1000);
+        // setIsMining(false);
+      // }, 1000);
     } else {
       setIsMining(false);
     }

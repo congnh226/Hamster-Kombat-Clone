@@ -1,7 +1,7 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+// import { doc, updateDoc } from 'firebase/firestore';
+// import { db } from '../firebase';
 
 function Boost() {
   const { user, setUser } = useOutletContext();
@@ -23,8 +23,8 @@ function Boost() {
         return;
     }
 
-    const userRef = doc(db, 'users', user.id);
-    await updateDoc(userRef, updatedUser);
+    // const userRef = doc(db, 'users', user.id);
+    // await updateDoc(userRef, updatedUser);
     setUser(updatedUser);
   };
 

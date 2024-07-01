@@ -1,47 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db } from './firebase';
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { doc, getDoc, setDoc } from 'firebase/firestore';
+// import { auth, db } from './firebase';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const newUser = {
+    id: 'authUser.uid',
+    coins: 0,
+    energy: 100,
+    level: 1,
+  };
+
+  const [user, setUser] = useState(newUser);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
-      setLoading(true);
-      if (authUser) {
-        try {
-          const userRef = doc(db, 'users', authUser.uid);
-          const userSnap = await getDoc(userRef);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+  //     setLoading(true);
+  //     if (authUser) {
+  //       try {
+  //         const userRef = doc(db, 'users', authUser.uid);
+  //         const userSnap = await getDoc(userRef);
           
-          if (userSnap.exists()) {
-            setUser({ id: authUser.uid, ...userSnap.data() });
-          } else {
-            const newUser = {
-              id: authUser.uid,
-              coins: 0,
-              energy: 100,
-              level: 1,
-            };
-            await setDoc(userRef, newUser);
-            setUser(newUser);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-        navigate('/');
-      }
-      setLoading(false);
-    });
+  //         if (userSnap.exists()) {
+  //           setUser({ id: authUser.uid, ...userSnap.data() });
+  //         } else {
+            // const newUser = {
+            //   id: authUser.uid,
+            //   coins: 0,
+            //   energy: 100,
+            //   level: 1,
+            // };
+  //           await setDoc(userRef, newUser);
+  //           setUser(newUser);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching user data:", error);
+  //         setUser(null);
+  //       }
+  //     } else {
+  //       setUser(null);
+  //       navigate('/');
+  //     }
+  //     setLoading(false);
+  //   });
 
-    return () => unsubscribe();
-  }, [navigate]);
+  //   return () => unsubscribe();
+  // }, [navigate]);
 
   if (loading) {
     return <div>Loading...</div>;

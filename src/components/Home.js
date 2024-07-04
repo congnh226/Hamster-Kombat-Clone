@@ -27,7 +27,7 @@ function Home() {
           coins: user.coins + miningPower,
           energy: Math.max(user.energy - 1, 0)
         });
-        // setIsMining(false);
+        setIsMining(false);
       // }, 1000);
     } else {
       setIsMining(false);
@@ -66,7 +66,7 @@ function Home() {
 
   return (
     <div className="home">
-      <h2 className="text-2xl font-bold mb-4">Mining Dashboard</h2>
+      <h2 className="text-2xl font-bold mb-4">Work work</h2>
       <div className="mb-4">
         <p>Coins: {user.coins}</p>
         <p>Energy: {user.energy}/100</p>
@@ -105,8 +105,8 @@ function Home() {
         <h3 className="text-xl font-semibold">Next Level</h3>
         <p>Coins needed: {user.level * 100 - user.coins}</p>
         <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
-          <div 
-            className="bg-blue-600 h-2.5 rounded-full" 
+          <div
+            className="bg-blue-600 h-2.5 rounded-full"
             style={{ width: `${(user.coins / (user.level * 100)) * 100}%` }}
           ></div>
         </div>

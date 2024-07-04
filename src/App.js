@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-// import { onAuthStateChanged } from 'firebase/auth';
-// import { doc, getDoc, setDoc } from 'firebase/firestore';
-// import { auth, db } from './firebase';
 
 function App() {
   const newUser = {
@@ -16,39 +13,24 @@ function App() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
-  //     setLoading(true);
-  //     if (authUser) {
-  //       try {
-  //         const userRef = doc(db, 'users', authUser.uid);
-  //         const userSnap = await getDoc(userRef);
-          
-  //         if (userSnap.exists()) {
-  //           setUser({ id: authUser.uid, ...userSnap.data() });
-  //         } else {
-            // const newUser = {
-            //   id: authUser.uid,
-            //   coins: 0,
-            //   energy: 100,
-            //   level: 1,
-            // };
-  //           await setDoc(userRef, newUser);
-  //           setUser(newUser);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error fetching user data:", error);
-  //         setUser(null);
-  //       }
-  //     } else {
-  //       setUser(null);
-  //       navigate('/');
-  //     }
-  //     setLoading(false);
-  //   });
+  useEffect(() => {
+      function initTg() {
+          setLoading(true);
+          if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+              console.log('Telegram WebApp is set');
+              const tgData = window.Telegram.WebApp
+              console.log('tgData', tgData);
+              console.log('tgData', tgData?.initDataUnsafe?.user?.id);
+              setLoading(false);
+              alert(tgData?.initDataUnsafe?.user?.id)
+          } else {
+              console.log('Telegram WebApp is undefined, retrying…');
+              setTimeout(initTg, 500);
+          }
+      }
 
-  //   return () => unsubscribe();
-  // }, [navigate]);
+    return () => initTg();
+  }, [navigate]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -61,7 +43,7 @@ function App() {
   return (
     <div className="app">
       <header className="bg-blue-500 text-white p-4">
-        <h1 className="text-2xl font-bold">Telegram Web App</h1>
+        <h1 className="text-2xl font-bold">Telegram Game</h1>
       </header>
       <main className="p-4">
         <Outlet context={{ user, setUser }} />

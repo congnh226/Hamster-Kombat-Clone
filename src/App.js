@@ -6,7 +6,7 @@ import config from "./config";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-    const [ws, setWs] = useState(null);
+  const [ws, setWs] = useState(null);
   const navigate = useNavigate();
 
     const initWs = (listenKey) => {
@@ -73,7 +73,7 @@ function App() {
 
                   // for testing
                   if (tgData?.initDataUnsafe?.user?.id == null) {
-                      requestBody.userId = 1;
+                      requestBody.userId = 3;
                       requestBody.username = "testing";
                       requestBody.firstName = "tester";
                   }
@@ -118,7 +118,7 @@ function App() {
         <h1 className="text-2xl font-bold">Telegram Game</h1>
       </header>
       <main className="p-4">
-        <Outlet context={{ user, setUser }} />
+        <Outlet context={{ user, setUser,  ws, setWs} } />
       </main>
       <nav className="fixed bottom-0 w-full bg-gray-200 p-4">
         {/* Add navigation buttons here */}

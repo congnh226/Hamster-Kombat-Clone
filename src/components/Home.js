@@ -7,6 +7,7 @@ import { FaCoins } from 'react-icons/fa';
 
 function Home() {
   const { user, setUser } = useOutletContext();
+  // const { ws, setWs } = useOutletContext();
   const [isMining, setIsMining] = useState(false);
   const [miningPower, setMiningPower] = useState(1);
   const [message, setMessage] = useState('');
@@ -23,10 +24,16 @@ function Home() {
 
     if (isMining && user.energy > 0) {
       // miningInterval = setInterval(() => {
-        updateUserData({
-          coins: user.coins + miningPower,
-          energy: Math.max(user.energy - 1, 0)
-        });
+        const subscribeMessage = {
+          event: "mining"
+      };
+
+      // ws.send(JSON.stringify(subscribeMessage));
+
+        // updateUserData({
+        //   coins: user.coins + miningPower,
+        //   energy: Math.max(user.energy - 1, 0)
+        // });
         setIsMining(false);
       // }, 1000);
     } else {

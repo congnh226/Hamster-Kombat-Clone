@@ -7,7 +7,7 @@ import { FaCoins } from 'react-icons/fa';
 
 function Home() {
   const { user, setUser } = useOutletContext();
-  // const { ws, setWs } = useOutletContext();
+  const { ws, setWs } = useOutletContext();
   const [isMining, setIsMining] = useState(false);
   const [miningPower, setMiningPower] = useState(1);
   const [message, setMessage] = useState('');
@@ -28,7 +28,7 @@ function Home() {
           event: "mining"
       };
 
-      // ws.send(JSON.stringify(subscribeMessage));
+      ws.send(JSON.stringify(subscribeMessage));
 
         // updateUserData({
         //   coins: user.coins + miningPower,

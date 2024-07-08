@@ -43,10 +43,12 @@ function App() {
         socket.onmessage = ({data}) => {
             // console.log('incoming ws message');
             data = JSON.parse(data);
-            // console.log('data', data);
+            console.log('payload', data);
 
-            if (data.id !== null && !data.result) {
-                // todo
+            if (data.code === 0 && data.event) {
+                if (data.event === 'user') {
+                    setUser(data.data);
+                }
             }
         };
 
@@ -80,7 +82,6 @@ function App() {
 
                   const userResponse = await updateOrAddUserApi(requestBody);
                   console.log('userResponse', userResponse);
-                  setUser(userResponse.data);
 
                   // init websocket
                   initWs(userResponse.data.accessToken);

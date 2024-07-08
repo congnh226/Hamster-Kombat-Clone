@@ -9,7 +9,6 @@ function Home() {
   const { user, setUser } = useOutletContext();
   const { ws, setWs } = useOutletContext();
   const [isMining, setIsMining] = useState(false);
-  const [miningPower, setMiningPower] = useState(1);
   const [message, setMessage] = useState('');
 
   const updateUserData = useCallback(async (newData) => {
@@ -51,7 +50,7 @@ function Home() {
       clearInterval(miningInterval);
       clearInterval(energyInterval);
     };
-  }, [isMining, user.energy, user.coins, updateUserData, miningPower]);
+  }, [isMining, user.energy, user.coins, updateUserData]);
 
   useEffect(() => {
     // Level up system
@@ -59,7 +58,6 @@ function Home() {
     if (user.coins >= requiredCoins) {
       updateUserData({ level: user.level + 1, coins: user.coins - requiredCoins });
       setMessage(`Congratulations! You've reached level ${user.level + 1}!`);
-      setMiningPower(prevPower => prevPower + 1);
     }
   }, [user.coins, user.level, updateUserData]);
 
@@ -78,7 +76,7 @@ function Home() {
         <p>Coins: {user.coins}</p>
         <p>Energy: {user.energy}/100</p>
         <p>Level: {user.level}</p>
-        <p>Mining Power: {miningPower}</p>
+        <p>Mining Power: {user.miningPower}</p>
       </div>
       <motion.button
         className={`px-4 py-2 rounded text-white ${isMining ? 'bg-red-500' : 'bg-green-500'}`}
